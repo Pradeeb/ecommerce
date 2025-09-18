@@ -1,13 +1,88 @@
+import { FaLock } from "react-icons/fa";
+import { FaPhone } from "react-icons/fa6";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
+import { useState } from "react";
+import { FaApple, FaFacebookF } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 
 import bgImage from '../../assets/authbg/signinbg.png';
 
-function signin(){
-    return(
-        <div   className="bg-center bg-cover bg-no-repeat w-screen h-screen relative"
-         style={{ backgroundImage: `url(${bgImage})` }}>
-             <div className='mt-36 absolute bg-white w-screen '> 
-                 test
-            </div> 
+function signin() {
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    return (
+        <div className="bg-center bg-cover bg-no-repeat w-screen h-screen relative md:flex md:justify-center md:align-middle"
+            style={{ backgroundImage: `url(${bgImage})` }}>
+            <div className='mt-36 h-10/12 md:h-3/4 md:mt-20  absolute bg-gray-50 md:w-1/2 w-screen rounded-4xl'>
+                <div className='m-2 md:m-5'>
+                    <p className='text-2xl font-bold mt-10 '>Log in</p>
+                    <p className='font-normal mt-0.5 '>Welcome back, Please enter your details</p>
+                    <div>
+                        <div className="mt-3">
+                            <label className="block mb-1 font-semibold" htmlFor="email">Mobile No</label>
+                            <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
+                                <FaPhone className="text-gray-400 mr-2" />
+                                <input
+                                    type="mobil"
+                                    id="mobil"
+                                    placeholder="Enter your mobil No"
+                                    className="bg-transparent outline-none flex-1"
+                                />
+                            </div>
+                        </div>
+                        <div className="mt-2">
+                            <label className="block mb-1 font-semibold" htmlFor="password">Password</label>
+                            <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
+                                <FaLock className="text-gray-400 mr-2" />
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    id="password"
+                                    placeholder="Password"
+                                    className="bg-transparent outline-none flex-1"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="focus:outline-none"
+                                >
+                                    {showPassword ? <BsEyeSlash className="text-gray-600" /> : <BsEye className="text-gray-600" />}
+                                </button>
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between mb-4 mt-2">
+                            <label className="flex items-center text-gray-700 text-sm">
+                                <input type="checkbox" className="mr-2 accent-blue-600" />
+                                Remember for 30 days
+                            </label>
+                            <a href="#" className="text-blue-600 text-sm hover:underline">Forgot password</a>
+                        </div>
+                        <div className="mt-7">
+                            <input type='submit' value="Log in" className='text-ce w-full bg-blue-600 text-white rounded-lg border-2 border-blue-600 py-2 px-4' />
+                        </div>
+                    </div>
+                    <div className="w-full max-w-md mx-auto">
+                        {/* Divider with text */}
+                        <div className="flex items-center my-6">
+                            <div className="flex-grow border-t border-gray-300"></div>
+                            <span className="mx-4 text-gray-500">Or log in with</span>
+                            <div className="flex-grow border-t border-gray-300"></div>
+                        </div>
+                        {/* Social buttons */}
+                        <div className="flex justify-center gap-4">
+                            <button className="w-16 h-16 bg-white rounded-xl shadow flex items-center justify-center border hover:shadow-md transition">
+                                <FaApple className="text-3xl text-black" />
+                            </button>
+                            <button className="w-16 h-16 bg-white rounded-xl shadow flex items-center justify-center border hover:shadow-md transition">
+                                <FcGoogle className="text-3xl" />
+                            </button>
+                            <button className="w-16 h-16 bg-white rounded-xl shadow flex items-center justify-center border hover:shadow-md transition">
+                                <FaFacebookF className="text-3xl text-[#1877f3]" />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
