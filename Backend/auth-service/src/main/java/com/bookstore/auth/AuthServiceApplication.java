@@ -1,4 +1,4 @@
-package com.book.store.auth;
+package com.bookstore.auth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

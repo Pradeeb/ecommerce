@@ -1,4 +1,4 @@
-package com.book.store.auth;
+package com.bookstore.oauth;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
