@@ -17,11 +17,13 @@ public class SecurityConfig {
 		
 		http.csrf(AbstractHttpConfigurer::disable)
 		    .authorizeHttpRequests(x -> x.anyRequest().authenticated())
-		    .oauth2Login(x -> x.defaultSuccessUrl("/hello",true));
-		  //  .formLogin(x -> x.defaultSuccessUrl("/hello",true)
+		    .oauth2Login(x -> x.defaultSuccessUrl("http://localhost:5173/main",true));
+		  //  .formLogin(x -> x.defaultSuccessUrl("/hello",true));
 		
 		return http.build();
 		
 	}
 
 }
+
+
