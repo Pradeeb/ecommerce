@@ -11,6 +11,8 @@ import java.time.Duration;
 @Configuration
 public class JwtConfig {
 
+/*	
+	
     @Bean
     public JwtDecoder jwtDecoder() {
         // Google JWKS URL
@@ -27,4 +29,7 @@ public class JwtConfig {
         jwtDecoder.setJwtValidator(withClockSkew);
         return jwtDecoder;
     }
+    
+*/
+	
 }

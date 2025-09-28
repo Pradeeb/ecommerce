@@ -13,23 +13,20 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
-	
-	   @Value("${ui.main.url}")
-       private String frontendURL;
-	
-	@Bean SecurityFilterChain defaultSecurityFuilterChain(HttpSecurity http) throws Exception{
-		
-		http.csrf(AbstractHttpConfigurer::disable)
-		    .authorizeHttpRequests(x ->{
-		    	x.anyRequest().authenticated();
-		    })
-		    .oauth2Login(x -> x.defaultSuccessUrl(frontendURL+"/main",true));
-		  //  .formLogin(x -> x.defaultSuccessUrl("/hello",true));
-		
+
+	@Value("${ui.main.url}")
+	private String frontendURL;
+
+	@Bean
+	SecurityFilterChain defaultSecurityFuilterChain(HttpSecurity http) throws Exception {
+
+		http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(x -> {
+			x.anyRequest().authenticated();
+		}).oauth2Login(x -> x.defaultSuccessUrl(frontendURL + "/main", true));
+		// .formLogin(x -> x.defaultSuccessUrl("/hello",true));
+
 		return http.build();
-		
+
 	}
 
 }
-
-
