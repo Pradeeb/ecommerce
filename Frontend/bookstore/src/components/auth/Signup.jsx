@@ -9,36 +9,37 @@ import { FaApple, FaFacebookF } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from 'react-router-dom';
 import * as yup from "yup"
-import {yupResolver} from '@hookform/resolvers/yup'
-import {useForm} from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm } from 'react-hook-form'
+import axios from "axios";
 
 import bgImage from '../../assets/authbg/signinbg.png';
 
-const schema=yup.object().shape({
-name: yup
-    .string()
-    .required("Name is required")
-    .min(3, "Name must be at least 3 characters"),
+const schema = yup.object().shape({
+    name: yup
+        .string()
+        .required("Name is required")
+        .min(3, "Name must be at least 3 characters"),
 
-  mobileNo: yup
-    .string()
-    .required("Mobile number is required")
-    .matches(/^[0-9]{10}$/, "Mobile number must be exactly 10 digits"),
+    mobileNo: yup
+        .string()
+        .required("Mobile number is required")
+        .matches(/^[0-9]{10}$/, "Mobile number must be exactly 10 digits"),
 
-  email: yup
-    .string()
-    .required("Email is required")
-    .email("Enter a valid email"),
+    email: yup
+        .string()
+        .required("Email is required")
+        .email("Enter a valid email"),
 
-  password: yup
-    .string()
-    .required("Password is required")
-    .min(6, "Password must be at least 6 characters"),
+    password: yup
+        .string()
+        .required("Password is required")
+        .min(6, "Password must be at least 6 characters"),
 
-  confirmPassword: yup
-    .string()
-    .required("Confirm password is required")
-    .oneOf([yup.ref("password"), null], "Passwords must match"),
+    confirmPassword: yup
+        .string()
+        .required("Confirm password is required")
+        .oneOf([yup.ref("password"), null], "Passwords must match"),
 })
 
 const Signup = () => {
@@ -46,11 +47,50 @@ const Signup = () => {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     //useform 
-    const {register,handleSubmit,formState:{errors}}=useForm({
-        resolver:yupResolver(schema)
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
     });
+
+    async function signUp(data) {
+
+         // form concept to pass form value front to back
+        const formData = new FormData();
+        formData.append("mail", data.email);
+        formData.append("name",data.name);
+        formData.append("mobileNumber",  data.mobileNo);
+        formData.append("password", data.password);
+
+         const res = await axios.post("http://localhost:8080/api/signup", formData)
+            .then(res => {
+                console.log(res.data)
+                alert("Signup successful!");
+            }).catch(res => {
+                console.error(res.data);
+                alert("Signup failed. Please try again.");
+            })
+
+        // Payload concept to pass form value front to back
+
+     /*   const payload = {
+            name: data.name,
+            mobileNumber: data.mobileNo,
+            mail: data.email,
+            password: data.password,
+        };
+
+        const res = await axios.post("http://localhost:8080/api/signup", payload)
+            .then(res => {
+                console.log(res.data)
+                alert("Signup successful!");
+            }).catch(res => {
+                console.error(res.data);
+                alert("Signup failed. Please try again.");
+            })
+                */
+    }
+
     console.error(errors);
-    
+
     let googleSignUp = () => {
         window.location.href = "http://localhost:8080/oauth2/authorization/google"
     }
@@ -66,102 +106,102 @@ const Signup = () => {
                 <div className='m-2 md:m-5'>
                     <p className='text-2xl font-bold mt-10 '>Sign UP</p>
                     <p className='font-normal mt-0.5 '>Welcome Please enter your details</p>
-                    <form onSubmit={handleSubmit(data=>console.log(data))}>
-                    <div>
-                        <div className="mt-3">
-                             <label className="block mb-1 font-semibold">Name</label>
-                             <p className="text-red-500">{errors.name?.message}</p>
-                            <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
-                                <FaUser className="text-gray-400 mr-2" />
-                                <input
-                                    type="text"
-                                    placeholder="Enter your name"
-                                    className="bg-transparent outline-none flex-1"
-                                {...register("name")}
-                                />
+                    <form onSubmit={handleSubmit(signUp)}>
+                        <div>
+                            <div className="mt-3">
+                                <label className="block mb-1 font-semibold">Name</label>
+                                <p className="text-red-500">{errors.name?.message}</p>
+                                <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
+                                    <FaUser className="text-gray-400 mr-2" />
+                                    <input
+                                        type="text"
+                                        placeholder="Enter your name"
+                                        className="bg-transparent outline-none flex-1"
+                                        {...register("name")}
+                                    />
+                                </div>
                             </div>
-                        </div>
-                        <div className="mt-3">
-                            <label className="block mb-1 font-semibold" htmlFor="email">Mobile No</label>
-                            <p className="text-red-500">{errors.mobileNo?.message}</p>
-                            <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
-                                <FaPhone className="text-gray-400 mr-2" />
-                                <input
-                                    type="text"
-                                    id="mobil"
-                                    placeholder="Enter your mobil No"
-                                    className="bg-transparent outline-none flex-1"
-                                 {...register("mobileNo")}
-                                />
+                            <div className="mt-3">
+                                <label className="block mb-1 font-semibold" htmlFor="email">Mobile No</label>
+                                <p className="text-red-500">{errors.mobileNo?.message}</p>
+                                <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
+                                    <FaPhone className="text-gray-400 mr-2" />
+                                    <input
+                                        type="text"
+                                        id="mobil"
+                                        placeholder="Enter your mobil No"
+                                        className="bg-transparent outline-none flex-1"
+                                        {...register("mobileNo")}
+                                    />
+                                </div>
                             </div>
-                        </div>
-                        <div className="mt-3">
-                            <label className="block mb-1 font-semibold" htmlFor="email">Email</label>
-                            <p className="text-red-500">{errors.email?.message}</p>
-                            <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
-                                <IoIosMail className="text-gray-400 mr-2 font text-lg" />
-                                <input
-                                    type="email"
-                                    id="mobil"
-                                    placeholder="Enter your email"
-                                    className="bg-transparent outline-none flex-1"
-                                 {...register("email")}
-                                />
+                            <div className="mt-3">
+                                <label className="block mb-1 font-semibold" htmlFor="email">Email</label>
+                                <p className="text-red-500">{errors.email?.message}</p>
+                                <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
+                                    <IoIosMail className="text-gray-400 mr-2 font text-lg" />
+                                    <input
+                                        type="email"
+                                        id="mobil"
+                                        placeholder="Enter your email"
+                                        className="bg-transparent outline-none flex-1"
+                                        {...register("email")}
+                                    />
+                                </div>
                             </div>
-                        </div>
-                        <div className="mt-2">
-                            <label className="block mb-1 font-semibold" htmlFor="password">Password</label>
-                            <p className="text-red-500">{errors.password?.message}</p>
-                            <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
-                                <FaLock className="text-gray-400 mr-2" />
-                                <input
-                                    type={showPassword ? "text" : "password"}
-                                    id="password"
-                                    placeholder="Password"
-                                    className="bg-transparent outline-none flex-1"
-                                {...register("password")}
-                               />
-                                <button
-                                    type="button"
-                                    onClick={() => setShowPassword(!showPassword)}
-                                    className="focus:outline-none"
-                                >
-                                    {showPassword ? <BsEyeSlash className="text-gray-600" /> : <BsEye className="text-gray-600" />}
-                                </button>
+                            <div className="mt-2">
+                                <label className="block mb-1 font-semibold" htmlFor="password">Password</label>
+                                <p className="text-red-500">{errors.password?.message}</p>
+                                <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
+                                    <FaLock className="text-gray-400 mr-2" />
+                                    <input
+                                        type={showPassword ? "text" : "password"}
+                                        id="password"
+                                        placeholder="Password"
+                                        className="bg-transparent outline-none flex-1"
+                                        {...register("password")}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="focus:outline-none"
+                                    >
+                                        {showPassword ? <BsEyeSlash className="text-gray-600" /> : <BsEye className="text-gray-600" />}
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div className="mt-2">
-                            <label className="block mb-1 font-semibold" htmlFor="password">Confirm Password</label>
-                            <p className="text-red-500">{errors.confirmPassword?.message}</p>
-                            <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
-                                <FaLock className="text-gray-400 mr-2" />
-                                <input
-                                    type={showConfirmPassword ? "text" : "password"}
-                                    id="password"
-                                    placeholder="confirm Password"
-                                    className="bg-transparent outline-none flex-1"
-                                 {...register("confirmPassword")}
-                               />
-                                <button
-                                    type="button"
-                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                    className="focus:outline-none"
-                                >
-                                    {showConfirmPassword ? <BsEyeSlash className="text-gray-600" /> : <BsEye className="text-gray-600" />}
-                                </button>
+                            <div className="mt-2">
+                                <label className="block mb-1 font-semibold" htmlFor="password">Confirm Password</label>
+                                <p className="text-red-500">{errors.confirmPassword?.message}</p>
+                                <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
+                                    <FaLock className="text-gray-400 mr-2" />
+                                    <input
+                                        type={showConfirmPassword ? "text" : "password"}
+                                        id="password"
+                                        placeholder="confirm Password"
+                                        className="bg-transparent outline-none flex-1"
+                                        {...register("confirmPassword")}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                        className="focus:outline-none"
+                                    >
+                                        {showConfirmPassword ? <BsEyeSlash className="text-gray-600" /> : <BsEye className="text-gray-600" />}
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div className="flex items-center justify-between mb-4 mt-2">
-                            <label className="flex items-center text-gray-700 text-sm">
-                                <label className="font-semibold">Already have an account? <Link className="text-blue-500 font-bold" to="/#">Log in</Link></label>
+                            <div className="flex items-center justify-between mb-4 mt-2">
+                                <label className="flex items-center text-gray-700 text-sm">
+                                    <label className="font-semibold">Already have an account? <Link className="text-blue-500 font-bold" to="/#">Log in</Link></label>
 
-                            </label>
-                            {/* <a href="#" className="text-blue-600 text-sm hover:underline">Forgot password</a> */}
+                                </label>
+                                {/* <a href="#" className="text-blue-600 text-sm hover:underline">Forgot password</a> */}
+                            </div>
+                            <div className="mt-7">
+                                <input type='submit' value="sign up" className='cursor-pointer text-ce w-full bg-blue-600 text-white rounded-lg border-2 border-blue-600 py-2 px-4' />
+                            </div>
                         </div>
-                        <div className="mt-7">
-                            <input type='submit' value="Log in" className='text-ce w-full bg-blue-600 text-white rounded-lg border-2 border-blue-600 py-2 px-4' />
-                        </div>
-                    </div>
                     </form>
                     <div className="w-full max-w-md mx-auto">
                         {/* Divider with text */}

@@ -25,6 +25,9 @@ public class UserLoginLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;  // use wrapper Long (nullable safe)
 
+    @Column(name = "sub_id")
+    private String subId;
+    
     @Column(name = "mail")
     private String mail;
 

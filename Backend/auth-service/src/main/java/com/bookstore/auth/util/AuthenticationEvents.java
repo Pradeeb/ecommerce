@@ -54,8 +54,10 @@ public class AuthenticationEvents {
 		    String name = null;
 		    String picture = null;
 		    LocalDateTime tokenExpire = null;
+		    String subId=null;
 
 		    if ("google".equalsIgnoreCase(provider)) {
+		    	subId=(String) attributes.get("sub");
 		        email = (String) attributes.get("email");
 		        emailVerified = (Boolean) attributes.getOrDefault("email_verified", false);
 		        name = (String) attributes.get("name");
@@ -76,6 +78,7 @@ public class AuthenticationEvents {
 		        }
 
 		    } else if ("github".equalsIgnoreCase(provider)) {
+		        subId = String.valueOf(attributes.get("id"));
 		        email = (String) attributes.get("email"); // can be null
 		        name = (String) attributes.get("name");
 		        picture = (String) attributes.get("avatar_url");
@@ -95,6 +98,7 @@ public class AuthenticationEvents {
 //		    }
 
 		    UserLoginLog log = new UserLoginLog();
+		    log.setSubId(subId);
 		    log.setMail(email);
 		    log.setName(name != null ? name : (String) attributes.get("login"));
 		    log.setLoginMode(LoginMode.valueOf(provider.toUpperCase()));
