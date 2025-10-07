@@ -12,6 +12,8 @@ import * as yup from "yup"
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import axios from "axios";
+import { signup, gitSignUp as github, googleSignUp as google } from '../hooks/useURL';
+import { useMutation } from "@tanstack/react-query";
 
 import bgImage from '../../assets/authbg/signinbg.png';
 
@@ -46,56 +48,84 @@ const Signup = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+    const signUpLogic = async (data) => {
+        const formData = new FormData();
+        formData.append("mail", data.email);
+        formData.append("name", data.name);
+        formData.append("mobileNumber", data.mobileNo);
+        formData.append("password", data.password);
+
+        const res = axios.post(signup, formData);
+        return res.data;
+
+    }
+
     //useform 
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, formState: { errors },reset } = useForm({
         resolver: yupResolver(schema)
     });
 
+    const mutation = useMutation({
+        mutationFn: signUpLogic,
+        onSuccess: (data) => {
+            console.log(data);
+            alert("Signup successful!");
+            reset();
+        },
+        onError: (error) => {
+            console.error(error);
+            alert("Signup failed. Please try again.");
+        },
+    })
+
+
     async function signUp(data) {
-
-         // form concept to pass form value front to back
-        const formData = new FormData();
-        formData.append("mail", data.email);
-        formData.append("name",data.name);
-        formData.append("mobileNumber",  data.mobileNo);
-        formData.append("password", data.password);
-
-         const res = await axios.post("http://localhost:8080/api/signup", formData)
-            .then(res => {
-                console.log(res.data)
-                alert("Signup successful!");
-            }).catch(res => {
-                console.error(res.data);
-                alert("Signup failed. Please try again.");
-            })
-
-        // Payload concept to pass form value front to back
-
-     /*   const payload = {
-            name: data.name,
-            mobileNumber: data.mobileNo,
-            mail: data.email,
-            password: data.password,
-        };
-
-        const res = await axios.post("http://localhost:8080/api/signup", payload)
-            .then(res => {
-                console.log(res.data)
-                alert("Signup successful!");
-            }).catch(res => {
-                console.error(res.data);
-                alert("Signup failed. Please try again.");
-            })
-                */
+        mutation.mutate(data);
+        /* 
+                // form concept to pass form value front to back
+       
+               const formData = new FormData();
+               formData.append("mail", data.email);
+               formData.append("name",data.name);
+               formData.append("mobileNumber",  data.mobileNo);
+               formData.append("password", data.password);
+       
+                const res = await axios.post(signup, formData)
+                   .then(res => {
+                       console.log(res.data)
+                       alert("Signup successful!");
+                   }).catch(res => {
+                       console.error(res.data);
+                       alert("Signup failed. Please try again.");
+                   })
+       
+           // Payload concept to pass form value front to back
+       
+             const payload = {
+                   name: data.name,
+                   mobileNumber: data.mobileNo,
+                   mail: data.email,
+                   password: data.password,
+               };
+       
+               const res = await axios.post("http://localhost:8080/api/signup", payload)
+                   .then(res => {
+                       console.log(res.data)
+                       alert("Signup successful!");
+                   }).catch(res => {
+                       console.error(res.data);
+                       alert("Signup failed. Please try again.");
+                   })
+                       */
     }
 
     console.error(errors);
 
     let googleSignUp = () => {
-        window.location.href = "http://localhost:8080/oauth2/authorization/google"
+        window.location.href = google;
     }
     let githubSignUp = () => {
-        window.location.href = "http://localhost:8080/oauth2/authorization/github"
+        window.location.href = github;
     }
     // style={{ backgroundImage: `url(${bgImage})` }}
 

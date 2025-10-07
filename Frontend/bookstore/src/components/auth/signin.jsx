@@ -10,6 +10,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import { useForm } from "react-hook-form"
 
+import {gitSignUp as github,googleSignUp as google} from '../hooks/useURL';
+
+
 import bgImage from '../../assets/authbg/signinbg.png';
 
 //yup 
@@ -30,10 +33,10 @@ function signin() {
      console.error(errors);
  
     let googleSignUp = () => {
-        window.location.href = "http://localhost:8080/oauth2/authorization/google"
+        window.location.href =google
     }
     let githubSignUp = () => {
-        window.location.href = "http://localhost:8080/oauth2/authorization/github"
+        window.location.href = github
     }
 
     return (
