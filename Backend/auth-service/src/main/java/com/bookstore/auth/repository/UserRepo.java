@@ -8,5 +8,6 @@ import com.bookstore.auth.entity.User;
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {
 
+	User findByMobileNumber(String mobileNumber);
 
 }

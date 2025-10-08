@@ -30,7 +30,7 @@ function signin() {
     const { register, handleSubmit, formState :{errors} } = useForm({
         resolver:yupResolver(schema)
     });
-     console.error(errors);
+//     console.error(errors || null);
  
     let googleSignUp = () => {
         window.location.href =google

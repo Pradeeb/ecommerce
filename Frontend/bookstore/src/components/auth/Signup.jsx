@@ -7,13 +7,14 @@ import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { useState } from "react";
 import { FaApple, FaFacebookF } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import * as yup from "yup"
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import axios from "axios";
 import { signup, gitSignUp as github, googleSignUp as google } from '../hooks/useURL';
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 import bgImage from '../../assets/authbg/signinbg.png';
 
@@ -47,6 +48,7 @@ const schema = yup.object().shape({
 const Signup = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const navigate = useNavigate();
 
     const signUpLogic = async (data) => {
         const formData = new FormData();
@@ -55,7 +57,7 @@ const Signup = () => {
         formData.append("mobileNumber", data.mobileNo);
         formData.append("password", data.password);
 
-        const res = axios.post(signup, formData);
+        const res = await axios.post(signup, formData);
         return res.data;
 
     }
@@ -68,13 +70,22 @@ const Signup = () => {
     const mutation = useMutation({
         mutationFn: signUpLogic,
         onSuccess: (data) => {
-            console.log(data);
-            alert("Signup successful!");
-            reset();
+            console.log("Api Response ==>",data);
+            alert(data.message ||"Signup successful!");
+            if(data.code == "CREATED"){
+                reset();
+                navigate('/')
+            }
         },
         onError: (error) => {
-            console.error(error);
-            alert("Signup failed. Please try again.");
+            console.error("Api Error ==>",error.response);
+            if(error.response && error.response.data){
+                 alert(error.response.data.message)
+            }
+            else{
+               alert("Signup failed. Please try again.");
+            }
+            
         },
     })
 
@@ -119,7 +130,7 @@ const Signup = () => {
                        */
     }
 
-    console.error(errors);
+ //   console.error("Throw error",errors || null);
 
     let googleSignUp = () => {
         window.location.href = google;
