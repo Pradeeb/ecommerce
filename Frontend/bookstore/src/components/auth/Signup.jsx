@@ -70,7 +70,7 @@ const Signup = () => {
     const mutation = useMutation({
         mutationFn: signUpLogic,
         onSuccess: (data) => {
-            console.log("Api Response ==>",data);
+ //           console.log("Api Response ==>",data);
             alert(data.message ||"Signup successful!");
             if(data.code == "CREATED"){
                 reset();
@@ -78,7 +78,7 @@ const Signup = () => {
             }
         },
         onError: (error) => {
-            console.error("Api Error ==>",error.response);
+//           console.error("Api Error ==>",error.response);
             if(error.response && error.response.data){
                  alert(error.response.data.message)
             }

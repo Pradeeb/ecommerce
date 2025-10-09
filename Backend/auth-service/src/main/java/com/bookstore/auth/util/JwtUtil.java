@@ -6,6 +6,9 @@ import io.jsonwebtoken.security.Keys;
 import java.security.Key;
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class JwtUtil {
 
     private static final String SECRET = "mySecretKey12345mySecretKey12345"; // keep in config

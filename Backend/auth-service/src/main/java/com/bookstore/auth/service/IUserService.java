@@ -5,4 +5,5 @@ import com.bookstore.auth.util.ApiResponse;
 
 public interface IUserService {
    public ApiResponse signUpNewUser(User user);
+   public ApiResponse signInService(User user);
 }

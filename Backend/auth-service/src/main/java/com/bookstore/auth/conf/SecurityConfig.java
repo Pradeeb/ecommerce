@@ -48,7 +48,7 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/oauth2/**", "/api/signup", "/api/login").permitAll()
+                .requestMatchers("/oauth2/**", "/api/signup", "/api/signin").permitAll()
                 .anyRequest().authenticated()
             )
             .oauth2Login(oauth -> oauth.successHandler(successHandler()))
@@ -70,7 +70,7 @@ public class SecurityConfig {
             cookie.setHttpOnly(true);
             cookie.setSecure(false);   // ⚠️ false for localhost, true in prod
             cookie.setPath("/");
-            cookie.setMaxAge(7 * 24 * 60 * 60);
+            cookie.setMaxAge(24 * 60 * 60);
 
             response.addCookie(cookie);
 

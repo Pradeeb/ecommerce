@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 	
-	private static final List<String> PUBLIC_URLS = List.of("/api/signup", "/api/login");
+	private static final List<String> PUBLIC_URLS = List.of("/api/signup", "/api/signin");
 
 	@Override
 	protected boolean shouldNotFilter(HttpServletRequest request) {
