@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
+import { getUser } from '../hooks/useURL';
 const SucceesPage = () => {
 
   const [user,setUser]=useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/user", { withCredentials: true })
+    axios.get(getUser, { withCredentials: true })
       .then(response => {
         console.log(response.data);
         setUser(response.data); // save user in state
