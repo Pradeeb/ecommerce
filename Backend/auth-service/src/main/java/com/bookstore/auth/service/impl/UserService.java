@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,6 @@ import com.bookstore.auth.entity.User;
 import com.bookstore.auth.repository.UserRepo;
 import com.bookstore.auth.service.IUserService;
 import com.bookstore.auth.util.ApiResponse;
-import com.bookstore.auth.util.JwtUtil;
 
 @Service
 public class UserService implements IUserService {

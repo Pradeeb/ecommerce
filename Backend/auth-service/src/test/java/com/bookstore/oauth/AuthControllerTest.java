@@ -41,7 +41,7 @@ class AuthControllerTest {
         // Arrange
         User user = new User();
         user.setMobileNumber("8940179054");
-        user.setPassword("Test12");
+        user.setPassword("");
 
         ApiResponse apiResponse = new ApiResponse();
         apiResponse.setCode(HttpStatus.OK);

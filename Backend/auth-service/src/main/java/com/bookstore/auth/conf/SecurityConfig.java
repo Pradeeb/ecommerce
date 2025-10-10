@@ -21,6 +21,7 @@ import com.bookstore.auth.util.JwtAuthFilter;
 import com.bookstore.auth.util.JwtUtil;
 
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
@@ -51,6 +52,16 @@ public class SecurityConfig {
                 .requestMatchers("/oauth2/**", "/api/signup", "/api/signin").permitAll()
                 .anyRequest().authenticated()
             )
+            // ✅ For manual form login
+//            .formLogin(form -> form
+//                .loginProcessingUrl("/api/signin")
+//                .successHandler(successHandler())
+//                .failureHandler((req, res, ex) -> {
+//                    res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//                    res.getWriter().write("Invalid credentials");
+//                })
+//            )
+            // ✅ For OAuth2 login
             .oauth2Login(oauth -> oauth.successHandler(successHandler()))
             .addFilterBefore(jwtAuthFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
 

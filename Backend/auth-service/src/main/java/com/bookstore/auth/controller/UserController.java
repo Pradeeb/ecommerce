@@ -56,6 +56,8 @@ public class UserController {
         return new ResponseEntity<>(apiResponse,apiResponse.getCode());
 	}
 	
+	
+	
 	@PostMapping(path = "/signin")
 	public ResponseEntity<ApiResponse> signin(@ModelAttribute User user,HttpServletResponse response) {
 
@@ -68,10 +70,11 @@ public class UserController {
             // ✅ Add cookie
             Cookie cookie = new Cookie("AUTH_TOKEN", jwt);
             cookie.setHttpOnly(true);
-            cookie.setSecure(false); // set true in prod
+            cookie.setSecure(false);   // ⚠️ false for localhost, true in prod
             cookie.setPath("/");
             cookie.setMaxAge(24 * 60 * 60);
             response.addCookie(cookie);
+            
         }
 		
 		return new ResponseEntity<>(apiResponse,apiResponse.getCode());

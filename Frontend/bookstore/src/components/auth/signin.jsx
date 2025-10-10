@@ -7,11 +7,11 @@ import { FcGoogle } from "react-icons/fc";
 import { Link } from 'react-router-dom';
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useMutation} from "@tanstack/react-query"
-import {useNavigate } from "react-router-dom"
+import { useMutation } from "@tanstack/react-query"
+import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 
-import {gitSignUp as github,googleSignUp as google, signin} from '../hooks/useURL';
+import { gitSignUp as github, googleSignUp as google, signin } from '../hooks/useURL';
 
 
 import bgImage from '../../assets/authbg/signinbg.png';
@@ -27,52 +27,58 @@ function Signin() {
 
     //Use for password eye button
     const [showPassword, setShowPassword] = useState(false);
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     // Form input react hook form 
-    const { register, handleSubmit, formState :{errors}, reset } = useForm({
-        resolver:yupResolver(schema)
+    const { register, handleSubmit, formState: { errors }, reset } = useForm({
+        resolver: yupResolver(schema)
     });
-    
-    const signinlogic=async (data)=>{
- 
-        const formdata =new FormData();
-        formdata.append("mobileNumber",data.mobileNo);
-         formdata.append("password",data.password);
 
-         const res= await axios.post(signin,formdata);
+    const signinlogic = async (data) => {
 
-         return res.data;
+        const formdata = new FormData();
+        formdata.append("mobileNumber", data.mobileNo);
+        formdata.append("password", data.password);
+
+        const res = await axios.post(signin, formdata, {
+            withCredentials: true,
+        });
+
+
+        return res.data;
 
     }
 
-      const mutation=useMutation({
-        mutationFn:signinlogic,
-        onSuccess:(data)=>{
-            if(data.code == "OK"){
-               navigate('/main')
- //            alert(data.message); 
+    const mutation = useMutation({
+        mutationFn: signinlogic,
+        onSuccess: (data) => {
+            if (data.code == "OK") {
+                navigate('/main')
+                //            alert(data.message); 
+                console.log("Name:", data.payLoad.name);
+                console.log("Mobile Number:", data.payLoad.mobileNumber);
+
             }
         },
-        onError:(error)=>{
-           if(error.response && error.response.data){
-              alert(error.response.data.message);
-              reset();
-           }
+        onError: (error) => {
+            if (error.response && error.response.data) {
+                alert(error.response.data.message);
+                reset();
+            }
         }
 
-      });
+    });
 
-//     console.error(errors || null);
- 
+    //     console.error(errors || null);
+
     let googleSignUp = () => {
-        window.location.href =google
+        window.location.href = google
     }
     let githubSignUp = () => {
         window.location.href = github
     }
 
-    const signinfn =(data) =>{
-      mutation.mutate(data)
+    const signinfn = (data) => {
+        mutation.mutate(data)
     }
 
     return (
@@ -86,7 +92,7 @@ function Signin() {
                         <div>
                             <div className="mt-3">
                                 <label className="block mb-1 font-semibold" htmlFor="email">Mobile No</label>
-                                 <p>{errors.mobileNo?.message}</p>
+                                <p>{errors.mobileNo?.message}</p>
                                 <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
                                     <FaPhone className="text-gray-400 mr-2" />
                                     <input
@@ -100,7 +106,7 @@ function Signin() {
                             </div>
                             <div className="mt-2">
                                 <label className="block mb-1 font-semibold" htmlFor="password">Password</label>
-                                 <p className="text-red-500">{errors.password?.message}</p>
+                                <p className="text-red-500">{errors.password?.message}</p>
                                 <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
                                     <FaLock className="text-gray-400 mr-2" />
                                     <input
@@ -108,9 +114,9 @@ function Signin() {
                                         id="password"
                                         placeholder="Password"
                                         className="bg-transparent outline-none flex-1"
-                                         {...register("password")}
+                                        {...register("password")}
                                     />
-                                   
+
                                     <button
                                         type="button"
                                         onClick={() => setShowPassword(!showPassword)}
