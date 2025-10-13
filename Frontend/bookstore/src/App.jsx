@@ -1,5 +1,5 @@
 import './App.css'
-import Singin from "./components/auth/signin"
+import Singin from "./components/auth/Signin"
 import Singup from "./components/auth/Signup"
 import { Routes, Route } from "react-router-dom";
 import SucceesPage from './components/Pages/SucceesPage';
