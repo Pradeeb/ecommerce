@@ -23,7 +23,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/auth")
 public class UserController {
 	
 	@Autowired UserLoginLogRepo loginLog;
@@ -68,7 +68,7 @@ public class UserController {
             String jwt = JwtUtil.generateToken(user.getMobileNumber());
 
             // ✅ Add cookie
-            Cookie cookie = new Cookie("AUTH_TOKEN", jwt);
+            Cookie cookie = new Cookie("AUTH_TOKEN",jwt);
             cookie.setHttpOnly(true);
             cookie.setSecure(false);   // ⚠️ false for localhost, true in prod
             cookie.setPath("/");
@@ -78,6 +78,11 @@ public class UserController {
         }
 		
 		return new ResponseEntity<>(apiResponse,apiResponse.getCode());
+	}
+	
+    @GetMapping(path = "/greeting")
+	public String sayHello() {
+		return "Hello World";
 	}
 	
 }

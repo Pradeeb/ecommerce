@@ -1,7 +1,5 @@
 package com.bookstore.auth.conf;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,15 +11,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.bookstore.auth.util.JwtAuthFilter;
 import com.bookstore.auth.util.JwtUtil;
 
 import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
@@ -32,35 +26,12 @@ public class SecurityConfig {
     private String frontendURL;
 
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173")); // your frontend URL
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("*"));
-        configuration.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
-
-    @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/oauth2/**", "/api/signup", "/api/signin").permitAll()
+                .requestMatchers("/oauth2/**", "/api/auth/signup", "/api/auth/signin","/api/auth/greeting").permitAll()
                 .anyRequest().authenticated()
             )
-            // ✅ For manual form login
-//            .formLogin(form -> form
-//                .loginProcessingUrl("/api/signin")
-//                .successHandler(successHandler())
-//                .failureHandler((req, res, ex) -> {
-//                    res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-//                    res.getWriter().write("Invalid credentials");
-//                })
-//            )
             // ✅ For OAuth2 login
             .oauth2Login(oauth -> oauth.successHandler(successHandler()))
             .addFilterBefore(jwtAuthFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
@@ -77,7 +48,7 @@ public class SecurityConfig {
             String jwt = JwtUtil.generateToken(username);
 
             // Store in cookie
-            Cookie cookie = new Cookie("AUTH_TOKEN", jwt);
+            Cookie cookie = new Cookie("AUTH_TOKEN",jwt);
             cookie.setHttpOnly(true);
             cookie.setSecure(false);   // ⚠️ false for localhost, true in prod
             cookie.setPath("/");
