@@ -1,4 +1,4 @@
-package com.bookstore.auth.entity;
+package com.bookstore.product.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
