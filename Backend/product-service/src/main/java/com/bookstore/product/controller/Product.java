@@ -12,16 +12,19 @@ import com.bookstore.product.service.IProductService;
 
 @RestController
 @RequestMapping(path = "/api/product")
-public class Greeting {
+public class Product {
 	
 	@Autowired ApiResponse apiResponse;
-
-	@GetMapping
-	public ResponseEntity<ApiResponse> callGreeting() {
+	@Autowired IProductService productService;
+	
+	@GetMapping(path ="/getall")
+	public ResponseEntity<ApiResponse> getAllProduct() {
 		
 		apiResponse.setCode(HttpStatus.OK);
 		apiResponse.setMessage("Wellcome Product service");
+		apiResponse.setPayLoad(productService.getAllProduct());
 		
 		return ResponseEntity.ok(apiResponse);
 	}
+
 }
