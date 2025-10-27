@@ -18,6 +18,7 @@ public class Product {
     
  // 1️⃣ Basic Book Information
     private String title;
+    private String category;
     private String subtitle;
     private String isbn10;
     private String isbn13;

@@ -26,5 +26,15 @@ public class Product {
 		
 		return ResponseEntity.ok(apiResponse);
 	}
+	
+	@GetMapping(path="/getcategory")
+	public ResponseEntity<ApiResponse> getCategory(){
+		
+		apiResponse.setCode(HttpStatus.OK);
+		apiResponse.setMessage("Wellcome category service");
+		apiResponse.setPayLoad(productService.getAllCategory());
+		
+		return ResponseEntity.ok(apiResponse);
+	}
 
 }

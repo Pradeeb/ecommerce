@@ -3,10 +3,25 @@ import { Link } from 'react-router-dom';
 import { IoSearchSharp } from "react-icons/io5";
 import { TiShoppingCart } from "react-icons/ti";
 import { FaRegUserCircle } from "react-icons/fa";
+import { useEffect, useState } from 'react';
+import { getAllCategory } from '../hooks/useURL';
+import axios from "axios"
 
 const Navebar = () => {
 
-    const list = ["test", "test", "Test", "test", "test", "test", "test", "test"];
+    const [category, setCategory] = useState([]);
+
+    useEffect(() => {
+        axios.get(getAllCategory, { withCredentials: true })
+            .then(response => {
+                setCategory(response.data.payLoad); // save product in state
+                console.log(category);
+                
+            })
+            .catch(error => {
+                console.error("Error fetching user:", error);
+            });
+    }, [])
 
     return (
         <>
@@ -30,11 +45,11 @@ const Navebar = () => {
                     </div>
                 </div>
                 <div className='flex flex-row justify-center'>
-                    {list.map((data, index) => (
+                    {category.map((data, index) => (
                         <Link to="#" key={index} className="me-4">
                             <p
                                 tabIndex={0}
-                                className="border-b-2 border-transparent focus:border-b-fuchsia-600 focus:text-fuchsia-600 text-2xl"
+                                className="border-b-2 p-1 border-transparent focus:border-b-fuchsia-600 focus:text-fuchsia-600 text-xl  focus:font-semibold"
                             >
                                 {data}
                             </p>

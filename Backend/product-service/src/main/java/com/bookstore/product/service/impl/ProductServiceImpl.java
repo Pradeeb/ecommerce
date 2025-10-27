@@ -19,4 +19,10 @@ public class ProductServiceImpl implements IProductService {
 		return productRepo.findAll();
 	}
 
+	@Override
+	public List<String> getAllCategory() {
+		// TODO Auto-generated method stub
+		return productRepo.findGroupedCategories();
+	}
+
 }

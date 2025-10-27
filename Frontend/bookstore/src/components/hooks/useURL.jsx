@@ -9,9 +9,10 @@ export const getUser = `${baseURL}/api/auth/user`;
 
 //Product URL
 export const getAllProduct = `${baseURL}/api/product/getall`;
+export const getAllCategory = `${baseURL}/api/product/getcategory`;
 
 const useURL = () => {
-  return { googleSignUp, gitSignUp, signup, signin, getUser, getAllProduct };
+  return { googleSignUp, gitSignUp, signup, signin, getUser, getAllProduct, getAllCategory };
 };
 
 export default useURL;

@@ -7,5 +7,6 @@ import com.bookstore.product.entity.Product;
 public interface IProductService {
 	
 	public List<Product> getAllProduct();
+	public List<String> getAllCategory();
 
 }
