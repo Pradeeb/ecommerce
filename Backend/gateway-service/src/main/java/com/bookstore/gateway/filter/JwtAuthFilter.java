@@ -25,7 +25,8 @@ public class JwtAuthFilter implements WebFilter {
     	    "/api/auth/signup",
     	    "/api/auth/signin",
     	    "/api/auth/greeting",
-    	    "/oauth2/**"
+    	    "/oauth2/authorization/google",
+    	    "/oauth2/authorization/github"
     	);
 
     @Override

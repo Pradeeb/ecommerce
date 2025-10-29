@@ -49,7 +49,7 @@ const Navebar = () => {
                         <Link to="#" key={index} className="me-4">
                             <p
                                 tabIndex={0}
-                                className="border-b-2 p-1 border-transparent focus:border-b-fuchsia-600 focus:text-fuchsia-600 text-xl  focus:font-semibold"
+                                className="border-b-2 p-1 border-transparent focus:border-b-fuchsia-600 focus:text-fuchsia-600 text-xl hover:text-fuchsia-600"
                             >
                                 {data}
                             </p>
