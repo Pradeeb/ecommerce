@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from "axios"
 import { getAllProduct } from '../hooks/useURL';
-const SucceesPage = () => {
+const HomePage = () => {
 
   const [pruduct, setPruduct] = useState([]);
 
@@ -32,11 +32,13 @@ const SucceesPage = () => {
               <div className="font-bold text-xl mb-2">{data.title}</div>
               <p className="text-gray-700 text-base flex-1">{data.description || "No description"}</p>
             </div>
-            <div className="px-6 pt-4 pb-2">
-              <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{data.isbn13}</span>
-              {data.language && (
-                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{data.language}</span>
+            <div className="px-6 pt-1 pb-2">
+              <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{data.bookDetails.isbn13}</span>
+              {data.bookDetails.language && (
+                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{data.bookDetails.language}</span>
               )}
+              <span className="inline-block bg-gray-200 rounded-full px-3 p1y- text-sm font-semibold text-gray-700 mr-2 mb-2">{data.price}</span>
+              <button className='px-3 py-0.5 bg-fuchsia-600 rounded-sm text-amber-50 hover:bg-fuchsia-800 cursor-pointer'>BUY</button>
             </div>
           </div>
         ))}
@@ -45,4 +47,4 @@ const SucceesPage = () => {
   )
 }
 
-export default SucceesPage
+export default HomePage

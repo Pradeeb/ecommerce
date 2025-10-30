@@ -1,4 +1,3 @@
-import SucceesPage from '../Pages/SucceesPage';
 import { Link } from 'react-router-dom';
 import { IoSearchSharp } from "react-icons/io5";
 import { TiShoppingCart } from "react-icons/ti";
@@ -58,8 +57,6 @@ const Navebar = () => {
                 </div>
 
             </div>
-            <allProduct />
-            <SucceesPage />
         </>
     )
 }
