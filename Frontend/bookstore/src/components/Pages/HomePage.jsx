@@ -17,14 +17,14 @@ const HomePage = () => {
 
   return (
     <div className="container mx-auto px-4 py-6">
-      <div className="grid gap-6 grid-cols-1 sm:grid-cols-1 md:grid-cols-3 xl:grid-cols-4">
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-1 md:grid-cols-3 xl:grid-cols-5">
         {pruduct && pruduct.map((data) => (
           <div
             key={data.id}
             className="border border-gray-300 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col"
           >
             <img
-              className="w-full h-48 object-cover"
+              className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
               src={data.coverImage}
               alt={data.title}
             />
@@ -38,7 +38,7 @@ const HomePage = () => {
                 <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{data.bookDetails.language}</span>
               )}
               <span className="inline-block bg-gray-200 rounded-full px-3 p1y- text-sm font-semibold text-gray-700 mr-2 mb-2">{data.price}</span>
-              <button className='px-3 py-0.5 bg-fuchsia-600 rounded-sm text-amber-50 hover:bg-fuchsia-800 cursor-pointer'>BUY</button>
+              <button className='inline-block bg-amber-600 hover:bg-amber-700 text-white text-sm font-medium py-2 px-6 rounded-lg transition-colors duration-300'>View Product</button>
             </div>
           </div>
         ))}
