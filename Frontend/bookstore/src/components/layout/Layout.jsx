@@ -7,7 +7,7 @@ const Layout = () => {
   return (
     <div className='min-h-screen'>
     <div><Navebar/></div>
-    {/* <div><HomePage/></div> */}
+    <div><HomePage/></div> 
     <div><ProductView/></div>
     <div>Address details</div>
     </div>
