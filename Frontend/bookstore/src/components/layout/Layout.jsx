@@ -2,6 +2,7 @@ import React from 'react'
 import Navebar from './Navebar'
 import HomePage from '../Pages/HomePage'
 import ProductView from '../Pages/ProductView'
+import withAuth from '../auth/withAuth';
 
 const Layout = () => {
   return (
@@ -14,4 +15,4 @@ const Layout = () => {
   )
 }
 
-export default Layout
+export default withAuth(Layout);  

@@ -1,18 +1,26 @@
 const baseURL = "http://localhost:8080";
 
-//Auth URL
+// Auth URLs
 export const googleSignUp = `${baseURL}/oauth2/authorization/google`;
 export const gitSignUp = `${baseURL}/oauth2/authorization/github`;
 export const signup = `${baseURL}/api/auth/signup`;
 export const signin = `${baseURL}/api/auth/signin`;
 export const getUser = `${baseURL}/api/auth/user`;
+export const greeting = `${baseURL}/greeting`;
 
-//Product URL
+// Product URLs
 export const getAllProduct = `${baseURL}/api/product/getall`;
 export const getAllCategory = `${baseURL}/api/product/getcategory`;
 
-const useURL = () => {
-  return { googleSignUp, gitSignUp, signup, signin, getUser, getAllProduct, getAllCategory };
-};
-
-export default useURL;
+export default function useURL() {
+  return {
+    googleSignUp,
+    gitSignUp,
+    signup,
+    signin,
+    getUser,
+    getAllProduct,
+    getAllCategory,
+    greeting,
+  };
+}
