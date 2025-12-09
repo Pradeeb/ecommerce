@@ -5,6 +5,11 @@ const HomePage = () => {
 
   const [pruduct, setPruduct] = useState([]);
 
+  const viewProduct=(data)=>{
+   console.log(data.id);
+  }
+
+
   useEffect(() => {
     axios.get(getAllProduct, { withCredentials: true })
       .then(response => {
@@ -38,7 +43,8 @@ const HomePage = () => {
                 <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{data.bookDetails.language}</span>
               )}
               <span className="inline-block bg-gray-200 rounded-full px-3 p1y- text-sm font-semibold text-gray-700 mr-2 mb-2">{data.price}</span>
-              <button className='inline-block bg-amber-600 hover:bg-amber-700 text-white text-sm font-medium py-2 px-6 rounded-lg transition-colors duration-300'>View Product</button>
+              <button className='inline-block bg-amber-600 hover:bg-amber-700 text-white text-sm font-medium py-2 px-6 rounded-lg transition-colors duration-300'
+              onClick={()=>viewProduct(data)}>View Product</button>
             </div>
           </div>
         ))}
