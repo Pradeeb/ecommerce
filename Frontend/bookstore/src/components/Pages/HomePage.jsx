@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import axios from "axios"
 import { getAllProduct } from '../hooks/useURL';
+import { useNavigate } from 'react-router-dom';
+
 const HomePage = () => {
 
   const [pruduct, setPruduct] = useState([]);
-
+  const navigate = useNavigate();
   const viewProduct=(data)=>{
-   console.log(data.id);
+   navigate(`/viewproduct/${data.id}`);
   }
 
 

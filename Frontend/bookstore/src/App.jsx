@@ -12,7 +12,7 @@ function App() {
       <Route path='/' element={<Singin />} />
       <Route path='/signup' element={<Singup />} />
       <Route path='/main' element={<Layout type="main"/>}/>
-      <Route path='/viewproduct' element={<Layout type="viewmono"/>}/>
+      <Route path='/viewproduct/:id' element={<Layout type="viewmono"/>}/>
     </Routes>
   )
 }

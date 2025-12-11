@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +27,19 @@ public class Product {
 		
 		return ResponseEntity.ok(apiResponse);
 	}
+	
+	@GetMapping("{id}")
+	public ResponseEntity<ApiResponse> getProductById(@PathVariable("id") Long id) {
+
+	    ApiResponse apiResponse = new ApiResponse();
+	    apiResponse.setCode(HttpStatus.OK);
+	    apiResponse.setMessage("Product fetched successfully");
+	    apiResponse.setPayLoad(productService.getProductById(id));
+
+	    return ResponseEntity.ok(apiResponse);
+	}
+	
+	
 	
 	@GetMapping(path="/getcategory")
 	public ResponseEntity<ApiResponse> getCategory(){

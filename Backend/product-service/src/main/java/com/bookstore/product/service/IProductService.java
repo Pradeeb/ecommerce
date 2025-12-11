@@ -8,5 +8,6 @@ public interface IProductService {
 	
 	public List<Product> getAllProduct();
 	public List<String> getAllCategory();
+	public Product getProductById(Long id);
 
 }

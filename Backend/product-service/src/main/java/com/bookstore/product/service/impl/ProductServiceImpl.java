@@ -25,4 +25,11 @@ public class ProductServiceImpl implements IProductService {
 		return productRepo.findGroupedCategories();
 	}
 
+	@Override
+	public Product getProductById(Long id) {
+		
+		return productRepo.findById(id)
+	            .orElseThrow(() -> new RuntimeException("Product not found"));
+	}
+
 }
