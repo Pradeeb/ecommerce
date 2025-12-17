@@ -11,7 +11,8 @@ export const greeting = `${baseURL}/greeting`;
 // Product URLs
 export const getAllProduct = `${baseURL}/api/product/getall`;
 export const getAllCategory = `${baseURL}/api/product/getcategory`;
-export const getSingleProduct=  `${baseURL}/api/product`;
+export const getSingleProduct=  `${baseURL}/api/product/id`;
+export const getCategoryProduct=  `${baseURL}/api/product/category`;
 
 export default function useURL() {
   return {
@@ -24,5 +25,6 @@ export default function useURL() {
     getAllCategory,
     greeting,
     getSingleProduct,
+    getCategoryProduct,
   };
 }

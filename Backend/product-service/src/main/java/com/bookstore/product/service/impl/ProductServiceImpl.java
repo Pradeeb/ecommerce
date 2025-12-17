@@ -32,4 +32,9 @@ public class ProductServiceImpl implements IProductService {
 	            .orElseThrow(() -> new RuntimeException("Product not found"));
 	}
 
+	@Override
+	public List<Product> getCategory(String category) {
+		return productRepo.getByCategory(category);
+	}
+
 }

@@ -28,7 +28,7 @@ public class Product {
 		return ResponseEntity.ok(apiResponse);
 	}
 	
-	@GetMapping("{id}")
+	@GetMapping("/id/{id}")
 	public ResponseEntity<ApiResponse> getProductById(@PathVariable("id") Long id) {
 
 	    ApiResponse apiResponse = new ApiResponse();
@@ -39,14 +39,22 @@ public class Product {
 	    return ResponseEntity.ok(apiResponse);
 	}
 	
-	
-	
 	@GetMapping(path="/getcategory")
-	public ResponseEntity<ApiResponse> getCategory(){
+	public ResponseEntity<ApiResponse> getAllCategory(){
 		
 		apiResponse.setCode(HttpStatus.OK);
 		apiResponse.setMessage("Wellcome category service");
 		apiResponse.setPayLoad(productService.getAllCategory());
+		
+		return ResponseEntity.ok(apiResponse);
+	}
+	
+	@GetMapping(path="/category/{category}")
+	public ResponseEntity<ApiResponse> getCategory(@PathVariable("category") String category){
+		
+		apiResponse.setCode(HttpStatus.OK);
+		apiResponse.setMessage("Wellcome category service");
+		apiResponse.setPayLoad(productService.getCategory(category));
 		
 		return ResponseEntity.ok(apiResponse);
 	}

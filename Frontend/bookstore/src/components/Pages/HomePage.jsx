@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const HomePage = () => {
 
   const [pruduct, setPruduct] = useState([]);
+  //for navigate
   const navigate = useNavigate();
   const viewProduct=(data)=>{
    navigate(`/viewproduct/${data.id}`);
