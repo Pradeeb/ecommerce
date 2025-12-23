@@ -80,6 +80,21 @@ public class UserController {
 		return new ResponseEntity<>(apiResponse,apiResponse.getCode());
 	}
 	
+	@PostMapping("/logout")
+	public ResponseEntity<?> logout(HttpServletResponse response) {
+
+	    Cookie cookie = new Cookie("AUTH_TOKEN", null);
+	    cookie.setHttpOnly(true);
+	    cookie.setSecure(false); // true in production (https)
+	    cookie.setPath("/");
+	    cookie.setMaxAge(0); // ❌ delete cookie
+
+	    response.addCookie(cookie);
+
+	    return ResponseEntity.ok("Logged out successfully");
+	}
+
+	
     @GetMapping(path = "/greeting")
 	public String sayHello() {
 		return "Hello World";

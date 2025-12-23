@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { IoSearchSharp } from "react-icons/io5";
 import { TiShoppingCart } from "react-icons/ti";
 import { FaRegUserCircle } from "react-icons/fa";
+import { FaPowerOff } from "react-icons/fa6";
 import { useEffect, useState } from 'react';
 import { getAllCategory } from '../hooks/useURL';
 import axios from "axios"
@@ -9,6 +10,10 @@ import axios from "axios"
 const Navebar = () => {
 
     const [category, setCategory] = useState([]);
+
+    function logoutlogic(){
+        
+    }
 
     useEffect(() => {
         axios.get(getAllCategory, { withCredentials: true })
@@ -32,14 +37,18 @@ const Navebar = () => {
                             <input type="text" className='w-full  focus:outline-none text-xl' />
                         </div>
                         <div className='flex flex-row justify-around'>
-                            <Link to="/">
+                            <Link to="/" className='flex flex-col justify-around'>
                                 <TiShoppingCart className='mr-10 text-3xl' />
-                                <p>Singin</p>
-                            </Link>
-                            <Link>
-                                <FaRegUserCircle className='text-3xl' />
                                 <p>Cart</p>
                             </Link>
+                            <Link className='flex flex-col justify-around'>
+                                <FaRegUserCircle className='mr-10  text-3xl ms-2' />
+                                <p>Singin</p>
+                            </Link>
+                            <button className='flex flex-col justify-around  hover:text-red-500' onClick={logoutlogic}>
+                                <FaPowerOff className='text-2xl ms-2' />
+                                <p>Logout</p>
+                            </button>
                         </div>
                     </div>
                 </div>
