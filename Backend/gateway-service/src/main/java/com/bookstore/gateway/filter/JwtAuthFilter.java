@@ -19,48 +19,65 @@ import reactor.core.publisher.Mono;
 public class JwtAuthFilter implements WebFilter {
 
     private static final String SECRET = "mySecretKey12345mySecretKey12345";
-    private static final Key key = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
-    
+    private static final Key key =
+            Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
+
     private static final List<String> PUBLIC_URLS = List.of(
-    	    "/api/auth/signup",
-    	    "/api/auth/signin",
-    	    "/api/auth/greeting",
-    	    "/oauth2/authorization/google",
-    	    "/oauth2/authorization/github"
-    	);
+        "/api/auth/signup",
+        "/api/auth/signin",
+        "/api/auth/logout",   // ✅ important
+        "/api/auth/greeting",
+        "/oauth2/authorization/google",
+        "/oauth2/authorization/github"
+    );
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
-        // ✅ Try to get token from cookie
-        String token = null;
-        if (exchange.getRequest().getCookies().containsKey("AUTH_TOKEN")) {
-            token = exchange.getRequest().getCookies().getFirst("AUTH_TOKEN").getValue();
+
+        // ✅ 1. ALWAYS allow preflight
+        if ("OPTIONS".equals(exchange.getRequest().getMethod().name())) {
+            return chain.filter(exchange);
         }
 
-        // ✅ (Optional) also support Bearer header
+        String path = exchange.getRequest().getPath().value();
+        boolean isPublic = PUBLIC_URLS.stream().anyMatch(path::startsWith);
+
+        // ✅ 2. Extract token
+        String token = null;
+
+        if (exchange.getRequest().getCookies().containsKey("AUTH_TOKEN")) {
+            token = exchange.getRequest()
+                    .getCookies()
+                    .getFirst("AUTH_TOKEN")
+                    .getValue();
+        }
+
         if (token == null) {
             String authHeader = exchange.getRequest().getHeaders().getFirst("Authorization");
             if (authHeader != null && authHeader.startsWith("Bearer ")) {
                 token = authHeader.substring(7);
             }
         }
-        
-        String path = exchange.getRequest().getPath().value();
-        boolean isPublic = PUBLIC_URLS.stream().anyMatch(path::equals);
 
+        // ✅ 3. Public URLs allowed without token
         if (token == null) {
-        	  if (isPublic) {
-        	        return chain.filter(exchange); // allow
-        	    } else {
-        	        exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
-        	        return exchange.getResponse().setComplete(); // block
-        	    }
+            if (isPublic) {
+                return chain.filter(exchange);
+            } else {
+                exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+                return exchange.getResponse().setComplete();
+            }
         }
 
+        // ✅ 4. Validate JWT
         try {
-            // ✅ Verify JWT signature
-            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
-            return chain.filter(exchange); // token valid
+            Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token);
+
+            return chain.filter(exchange);
+
         } catch (JwtException e) {
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();

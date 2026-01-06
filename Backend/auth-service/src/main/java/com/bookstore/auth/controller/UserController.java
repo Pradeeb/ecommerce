@@ -85,15 +85,14 @@ public class UserController {
 
 	    Cookie cookie = new Cookie("AUTH_TOKEN", null);
 	    cookie.setHttpOnly(true);
-	    cookie.setSecure(false); // true in production (https)
+	    cookie.setSecure(false); // true in prod HTTPS
 	    cookie.setPath("/");
-	    cookie.setMaxAge(0); // ❌ delete cookie
+	    cookie.setMaxAge(0); // 🔥 DELETE COOKIE
 
 	    response.addCookie(cookie);
 
-	    return ResponseEntity.ok("Logged out successfully");
+	    return ResponseEntity.ok().body("Logged out");
 	}
-
 	
     @GetMapping(path = "/greeting")
 	public String sayHello() {

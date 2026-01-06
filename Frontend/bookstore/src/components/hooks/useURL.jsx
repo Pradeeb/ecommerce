@@ -7,6 +7,7 @@ export const signup = `${baseURL}/api/auth/signup`;
 export const signin = `${baseURL}/api/auth/signin`;
 export const getUser = `${baseURL}/api/auth/user`;
 export const greeting = `${baseURL}/greeting`;
+export const logout = `${baseURL}/api/auth/logout`;
 
 // Product URLs
 export const getAllProduct = `${baseURL}/api/product/getall`;
@@ -26,5 +27,6 @@ export default function useURL() {
     greeting,
     getSingleProduct,
     getCategoryProduct,
+    logout
   };
 }

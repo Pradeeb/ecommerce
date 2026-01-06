@@ -4,23 +4,36 @@ import { TiShoppingCart } from "react-icons/ti";
 import { FaRegUserCircle } from "react-icons/fa";
 import { FaPowerOff } from "react-icons/fa6";
 import { useEffect, useState } from 'react';
-import { getAllCategory } from '../hooks/useURL';
+import { getAllCategory, logout } from '../hooks/useURL';
 import axios from "axios"
+import { useNavigate } from 'react-router-dom'
 
 const Navebar = () => {
 
     const [category, setCategory] = useState([]);
+    const navigate = useNavigate();
 
-    function logoutlogic(){
-        
-    }
+    const logoutlogic = async () => {
+        try {
+            await axios.post(
+                logout,        // backend logout URL
+                {},
+                { withCredentials: true }
+            );
+            console.log("Logged out successfully");
+        } catch (error) {
+            console.error("Logout error", error);
+        } finally {
+            navigate("/", { replace: true });
+        }
+    };
+
 
     useEffect(() => {
         axios.get(getAllCategory, { withCredentials: true })
             .then(response => {
                 setCategory(response.data.payLoad); // save product in state
                 console.log(category);
-                
             })
             .catch(error => {
                 console.error("Error fetching user:", error);
