@@ -42,41 +42,70 @@ const Navebar = () => {
 
     return (
         <>
-            <div className='bg-white w-full h-32 sticky top-0'>
-                <div className='bg-linear-to-t from-white-50 to-fuchsia-300 w-full h-20 sticky  top-0 px-10 pt-5'>
-                    <div className='flex flex-row justify-around'>
-                        <div><Link className='text-3xl font-bold text-fuchsia-800 '>Book Store</Link></div>
-                        <div className='flex bg-white rounded-xl p-0.5 basis-1/2 h-10'><IoSearchSharp className='text-2xl m-1' />
-                            <input type="text" className='w-full  focus:outline-none text-xl' />
+            <div className="bg-white w-full sticky top-0 z-50">
+                <div className="bg-linear-to-t from-white-50 to-fuchsia-300 w-full px-4 py-3">
+
+                    {/* TOP ROW */}
+                    <div className="flex items-center justify-between">
+
+                        {/* Logo */}
+                        <Link className="text-2xl md:text-3xl font-bold text-fuchsia-800">
+                            Book Store
+                        </Link>
+                                          {/* SEARCH BAR */}
+                    <div className="mt-3 md:mt-0 md:flex md:justify-center">
+                        <div className="flex bg-white rounded-xl p-1 w-full md:w-1/2 h-10 items-center">
+                            <IoSearchSharp className="text-2xl mx-2 text-gray-500" />
+                            <input
+                                type="text"
+                                placeholder="Search books..."
+                                className="w-full focus:outline-none text-base md:text-xl"
+                            />
                         </div>
-                        <div className='flex flex-row justify-around'>
-                            <Link to="/" className='flex flex-col justify-around'>
-                                <TiShoppingCart className='mr-10 text-3xl' />
-                                <p>Cart</p>
+                    </div>
+
+                        {/* Icons */}
+                        <div className="flex items-center gap-6">
+                            <Link to="/" className="flex flex-col items-center">
+                                <TiShoppingCart className="text-2xl md:text-3xl" />
+                                <p className="hidden md:block text-sm">Cart</p>
                             </Link>
-                            <Link className='flex flex-col justify-around'>
-                                <FaRegUserCircle className='mr-10  text-3xl ms-2' />
-                                <p>Singin</p>
+
+                            <Link className="flex flex-col items-center">
+                                <FaRegUserCircle className="text-2xl md:text-3xl" />
+                                <p className="hidden md:block text-sm">Signin</p>
                             </Link>
-                            <button className='flex flex-col justify-around  hover:text-red-500' onClick={logoutlogic}>
-                                <FaPowerOff className='text-2xl ms-2' />
-                                <p>Logout</p>
+
+                            <button
+                                className="flex flex-col items-center hover:text-red-500"
+                                onClick={logoutlogic}
+                            >
+                                <FaPowerOff className="text-xl md:text-2xl" />
+                                <p className="hidden md:block text-sm">Logout</p>
                             </button>
                         </div>
                     </div>
+
+  
+
                 </div>
-                <div className='flex flex-row justify-center'>
-                    {category.map((data, index) => (
-                        <Link to="#" key={index} className="me-4">
-                            <p
-                                tabIndex={0}
-                                className="border-b-2 p-1 border-transparent focus:border-b-fuchsia-600 focus:text-fuchsia-600 text-xl hover:text-fuchsia-600"
-                            >
-                                {data}
-                            </p>
-                        </Link>
-                    ))}
+
+
+                <div className="flex justify-center">
+                    <div className="flex flex-nowrap gap-4 overflow-x-auto whitespace-nowrap px-4 scrollbar-hide">
+                        {category.map((data, index) => (
+                            <Link to="#" key={index}>
+                                <p
+                                    tabIndex={0}
+                                    className="border-b-2 p-1 border-transparent focus:border-b-fuchsia-600 focus:text-fuchsia-600 text-xl hover:text-fuchsia-600"
+                                >
+                                    {data}
+                                </p>
+                            </Link>
+                        ))}
+                    </div>
                 </div>
+
 
             </div>
         </>
