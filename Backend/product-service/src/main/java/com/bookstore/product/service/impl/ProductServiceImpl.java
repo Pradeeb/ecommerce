@@ -3,6 +3,7 @@ package com.bookstore.product.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.bookstore.product.entity.Product;
@@ -16,7 +17,17 @@ public class ProductServiceImpl implements IProductService {
 	
 	@Override
 	public List<Product> getAllProduct() {
-		return productRepo.findAll();
+		
+
+
+		List<Product> poductList = productRepo.findAll();
+		
+		for(Product pro:poductList) {
+			String sku=pro.getSku();
+			mail(sku);
+		}
+		
+		return poductList;
 	}
 
 	@Override
@@ -37,4 +48,9 @@ public class ProductServiceImpl implements IProductService {
 		return productRepo.getByCategory(category);
 	}
 
+	@Async
+	public void mail(String str) {
+		// 5 sec
+		//mail logic send (str)
+	}
 }

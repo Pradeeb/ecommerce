@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookstore.product.entity.util.ApiResponse;
-import com.bookstore.product.service.IProductService;
 
 @RestController
 @RequestMapping(path = "/api/product")
