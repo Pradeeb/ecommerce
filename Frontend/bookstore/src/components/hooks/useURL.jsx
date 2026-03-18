@@ -1,4 +1,4 @@
-const baseURL = "http://localhost:8080";
+const baseURL = "http://localhost:8085";
 
 // Auth URLs
 export const googleSignUp = `${baseURL}/oauth2/authorization/google`;
