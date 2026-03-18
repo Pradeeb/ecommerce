@@ -15,12 +15,12 @@ import com.bookstore.product.service.IProductService;
 @RequestMapping(path = "/api/product")
 public class Product {
 	
-	@Autowired ApiResponse apiResponse;
+//	@Autowired ApiResponse apiResponse;  its singleton it affect same time data change
 	@Autowired IProductService productService;
 	
 	@GetMapping(path ="/getall")
 	public ResponseEntity<ApiResponse> getAllProduct() {
-		
+		ApiResponse apiResponse =new ApiResponse();
 		apiResponse.setCode(HttpStatus.OK);
 		apiResponse.setMessage("Wellcome Product service");
 		apiResponse.setPayLoad(productService.getAllProduct());
@@ -41,7 +41,7 @@ public class Product {
 	
 	@GetMapping(path="/getcategory")
 	public ResponseEntity<ApiResponse> getAllCategory(){
-		
+		ApiResponse apiResponse =new ApiResponse();
 		apiResponse.setCode(HttpStatus.OK);
 		apiResponse.setMessage("Wellcome category service");
 		apiResponse.setPayLoad(productService.getAllCategory());
@@ -51,7 +51,7 @@ public class Product {
 	
 	@GetMapping(path="/category/{category}")
 	public ResponseEntity<ApiResponse> getCategory(@PathVariable("category") String category){
-		
+		ApiResponse apiResponse =new ApiResponse();
 		apiResponse.setCode(HttpStatus.OK);
 		apiResponse.setMessage("Wellcome category service");
 		apiResponse.setPayLoad(productService.getCategory(category));
