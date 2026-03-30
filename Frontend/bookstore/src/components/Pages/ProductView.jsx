@@ -134,7 +134,7 @@ const ProductView = () => {
               rel="noopener noreferrer"
               className="inline-block bg-amber-600 hover:bg-amber-700 text-white text-sm font-medium  py-2 px-6 rounded-lg transition-colors duration-300 text-center"
             >
-              Buy
+              Add to cart
             </a>
           </div>
         </div>

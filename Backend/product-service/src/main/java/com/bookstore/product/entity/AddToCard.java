@@ -16,7 +16,6 @@ import lombok.Data;
 @Table(name = "addtocard")
 @Data
 public class AddToCard {
-	
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)	
 	private long id;
@@ -30,6 +29,4 @@ public class AddToCard {
 	@OneToOne
 	@JoinColumn(name = "product_id",nullable = false)
 	private Product product;
-
-
 }
