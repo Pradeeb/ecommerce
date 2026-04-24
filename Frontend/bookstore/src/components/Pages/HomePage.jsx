@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
 
-  const [pruduct, setPruduct] = useState([]);
+  const [product, setProduct] = useState([]);
   //for navigate
   const navigate = useNavigate();
   const viewProduct=(data)=>{
@@ -16,7 +16,7 @@ const HomePage = () => {
   useEffect(() => {
     axios.get(getAllProduct, { withCredentials: true })
       .then(response => {
-        setPruduct(response.data.payLoad); // save product in state
+        setProduct(response.data.payLoad); // save product in state
       })
       .catch(error => {
         console.error("Error fetching user:", error);
@@ -26,7 +26,7 @@ const HomePage = () => {
   return (
     <div className="container mx-auto px-4 py-6">
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-1 md:grid-cols-3 xl:grid-cols-5">
-        {pruduct && pruduct.map((data) => (
+        {product && product.map((data) => (
           <div
             key={data.id}
             className="border border-gray-300 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col"

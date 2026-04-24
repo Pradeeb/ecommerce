@@ -15,6 +15,7 @@ import axios from "axios";
 import { signup, gitSignUp as github, googleSignUp as google } from '../hooks/useURL';
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from 'react-hot-toast';
 
 import bgImage from '../../assets/authbg/signinbg.png';
 
@@ -71,7 +72,7 @@ const Signup = () => {
         mutationFn: signUpLogic,
         onSuccess: (data) => {
  //           console.log("Api Response ==>",data);
-            alert(data.message ||"Signup successful!");
+            toast.success(data.message || "Signup successful!");
             if(data.code == "CREATED"){
                 reset();
                 navigate('/')
@@ -80,10 +81,10 @@ const Signup = () => {
         onError: (error) => {
 //           console.error("Api Error ==>",error.response);
             if(error.response && error.response.data){
-                 alert(error.response.data.message)
+                 toast.error(error.response.data.message)
             }
             else{
-               alert("Signup failed. Please try again.");
+               toast.error("Signup failed. Please try again.");
             }
             
         },
@@ -271,6 +272,7 @@ const Signup = () => {
                     </div>
                 </div>
             </div>
+            <Toaster />
         </div>
     )
 }

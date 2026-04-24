@@ -10,6 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from "@tanstack/react-query"
 import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
+import toast, { Toaster } from 'react-hot-toast';
 
 import { gitSignUp as github, googleSignUp as google, signin } from '../hooks/useURL';
 
@@ -61,7 +62,7 @@ function Signin() {
         },
         onError: (error) => {
             if (error.response && error.response.data) {
-                alert(error.response.data.message);
+                toast.error(error.response.data.message);
                 reset();
             }
         }
@@ -164,6 +165,7 @@ function Signin() {
                     </div>
                 </div>
             </div>
+            <Toaster />
         </div>
     )
 }
