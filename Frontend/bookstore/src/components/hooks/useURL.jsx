@@ -1,5 +1,6 @@
 const baseURL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
 
+
 // Auth URLs
 export const googleSignUp = `${baseURL}/oauth2/authorization/google`;
 export const gitSignUp = `${baseURL}/oauth2/authorization/github`;
