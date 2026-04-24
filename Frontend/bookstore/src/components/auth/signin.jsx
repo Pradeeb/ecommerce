@@ -15,7 +15,6 @@ import toast, { Toaster } from 'react-hot-toast';
 import { gitSignUp as github, googleSignUp as google, signin } from '../hooks/useURL';
 
 
-import bgImage from '../../assets/authbg/signinbg.png';
 import axios from "axios";
 
 //yup 
@@ -83,13 +82,28 @@ function Signin() {
     }
 
     return (
-        <div className="bg-center bg-cover bg-no-repeat w-screen h-screen relative md:flex md:justify-center md:align-middle"
-            style={{ backgroundImage: `url(${bgImage})` }}>
-            <div className='mt-36 h-10/12 md:h-3/4 md:mt-20  absolute bg-gray-50 md:w-1/2 w-screen rounded-4xl'>
-                <div className='m-2 md:m-5'>
-                    <p className='text-2xl font-bold mt-10 '>Log in</p>
-                    <p className='font-normal mt-0.5 '>Welcome back, Please enter your details</p>
-                    <form onSubmit={handleSubmit(signinfn)}>
+        <div className="min-h-screen w-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black flex items-center justify-center px-4 py-8">
+            {/* Animated Background Gradients */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div className="absolute top-0 left-10 w-72 h-72 bg-fuchsia-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+                <div className="absolute top-0 right-10 w-72 h-72 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style={{animationDelay: '2s'}}></div>
+                <div className="absolute -bottom-8 left-1/2 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style={{animationDelay: '4s'}}></div>
+            </div>
+
+            {/* Main Card */}
+            <div className="relative z-10 w-full max-w-md">
+                <div className="bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-8 md:p-10 border border-white/20">
+                    
+                    {/* Header */}
+                    <div className="text-center mb-8">
+                        <h1 className="text-4xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 via-purple-400 to-cyan-400">
+                            Welcome Back
+                        </h1>
+                        <p className="text-gray-300 text-sm">Enter your credentials to access your account</p>
+                    </div>
+
+                    {/* Form */}
+                    <form onSubmit={handleSubmit(signinfn)} className="space-y-5">
                         <div>
                             <div className="mt-3">
                                 <label className="block mb-1 font-semibold" htmlFor="email">Mobile No</label>
@@ -135,36 +149,52 @@ function Signin() {
                             </div>
                             <div className="mt-7">
                                 <input type='submit' value="Log in" className='text-ce w-full bg-blue-600 hover:bg-blue-800 cursor-pointer text-white rounded-lg border-2 border-blue-600 py-2 px-4' />
-                            </div>
-                        </div>
                     </form>
-                    <div className="w-full max-w-md mx-auto">
-                        {/* Divider with text */}
-                        <div className="flex items-center my-6">
-                            <div className="flex-grow border-t border-gray-300"></div>
-                            <span className="mx-4 text-gray-500">Or log in with</span>
-                            <div className="flex-grow border-t border-gray-300"></div>
-                        </div>
-                        {/* Social buttons */}
-                        <div className="flex justify-center gap-4">
-                            <button className="w-16 h-16  hover:bg-amber-50 cursor-pointer bg-white rounded-xl shadow flex items-center justify-center border hover:shadow-md transition
-                             focus:outline-2 focus:outline-offset-2 focus:outline-blue-600">
-                                <FaApple className="text-3xl text-black" />
-                            </button>
-                            <button onClick={googleSignUp}
-                                className="w-16 h-16  hover:bg-amber-50 cursor-pointer bg-white rounded-xl shadow flex items-center justify-center border hover:shadow-md transition\
-                             focus:outline-2 focus:outline-offset-2 focus:outline-blue-600">
-                                <FcGoogle className="text-3xl" />
-                            </button>
-                            <button onClick={githubSignUp}
-                                className="w-16 h-16 hover:bg-amber-50 cursor-pointer bg-white rounded-xl shadow flex items-center justify-center border hover:shadow-md transition
-                                               focus:outline-2 focus:outline-offset-2 focus:outline-blue-600">
-                                <FaFacebookF className="text-3xl text-[#1877f3]" />
-                            </button>
-                        </div>
+
+                    {/* Divider */}
+                    <div className="flex items-center my-6">
+                        <div className="flex-grow border-t border-gray-500/50"></div>
+                        <span className="px-3 text-gray-400 text-xs">OR</span>
+                        <div className="flex-grow border-t border-gray-500/50"></div>
                     </div>
+
+                    {/* Social Login Buttons */}
+                    <div className="flex justify-center gap-4">
+                        <button 
+                            type="button"
+                            className="w-14 h-14 rounded-lg bg-gradient-to-br from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700 text-white flex items-center justify-center transition transform hover:scale-110 hover:shadow-lg hover:shadow-cyan-500/50 border border-cyan-500/30"
+                        >
+                            <FaApple className="text-2xl" />
+                        </button>
+                        <button 
+                            type="button"
+                            onClick={googleSignUp}
+                            className="w-14 h-14 rounded-lg bg-gradient-to-br from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700 text-white flex items-center justify-center transition transform hover:scale-110 hover:shadow-lg hover:shadow-fuchsia-500/50 border border-fuchsia-500/30"
+                        >
+                            <FcGoogle className="text-2xl" />
+                        </button>
+                        <button 
+                            type="button"
+                            onClick={githubSignUp}
+                            className="w-14 h-14 rounded-lg bg-gradient-to-br from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700 text-white flex items-center justify-center transition transform hover:scale-110 hover:shadow-lg hover:shadow-purple-500/50 border border-purple-500/30"
+                        >
+                            <FaFacebookF className="text-2xl text-blue-400" />
+                        </button>
+                    </div>
+
+                    {/* Signup Link */}
+                    <p className="text-center text-gray-300 text-sm mt-6">
+                        Don't have an account?{' '}
+                        <Link to="/signup" className="text-cyan-400 font-bold hover:text-cyan-300 transition">
+                            Create one
+                        </Link>
+                    </p>
                 </div>
+
+                {/* Glow Effect */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-fuchsia-500/20 to-cyan-500/20 blur-xl opacity-0 hover:opacity-100 transition duration-300 pointer-events-none"></div>
             </div>
+
             <Toaster />
         </div>
     )
