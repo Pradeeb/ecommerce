@@ -149,6 +149,8 @@ function Signin() {
                             </div>
                             <div className="mt-7">
                                 <input type='submit' value="Log in" className='text-ce w-full bg-blue-600 hover:bg-blue-800 cursor-pointer text-white rounded-lg border-2 border-blue-600 py-2 px-4' />
+                            </div>
+                        </div>
                     </form>
 
                     {/* Divider */}
