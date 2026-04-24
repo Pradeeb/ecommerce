@@ -13,15 +13,19 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.client.authentication.OAuth2LoginAuthenticationToken;
 import org.springframework.stereotype.Component;
 
+import com.bookstore.auth.entity.User;
 import com.bookstore.auth.entity.UserLoginLog;
 import com.bookstore.auth.enums.LoginMode;
 import com.bookstore.auth.repository.UserLoginLogRepo;
+import com.bookstore.auth.service.impl.UserService;
 
 @Component
 public class AuthenticationEvents {
 
 	@Autowired
 	private UserLoginLogRepo userLoginRepository;
+	
+	@Autowired UserService userSerivice;
 
 	@EventListener
 	public void onSuccess(AuthenticationSuccessEvent success) {
@@ -105,8 +109,20 @@ public class AuthenticationEvents {
 		    log.setPicture(picture);
 		    log.setIsVerified(emailVerified);
 		    log.setTokenExpire(tokenExpire);
-
+		    
+		    if(provider.equalsIgnoreCase("github")) {
+		    	email=subId;
+		    }
+		    
+		    User userObj=new User();
+			userObj.setMail(email);
+			userObj.setIsVerified(emailVerified);
+			userObj.setName(name != null ? name : (String) attributes.get("login"));
+			userObj.setPicture(picture);
+			userObj.setTokenExpire(tokenExpire);
+			userObj.setLoginMode((provider.equalsIgnoreCase("google"))? LoginMode.GOOGLE :LoginMode.GITHUB);
+			
+			userSerivice.oAuthSignIn(userObj);
 		    userLoginRepository.save(log);
 	}
-
 }

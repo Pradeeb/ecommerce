@@ -9,5 +9,6 @@ import com.bookstore.auth.entity.User;
 public interface UserRepo extends JpaRepository<User, Long> {
 
 	User findByMobileNumber(String mobileNumber);
+	User findByMail(String email);
 
 }

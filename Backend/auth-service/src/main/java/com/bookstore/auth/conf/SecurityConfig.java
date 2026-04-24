@@ -29,7 +29,7 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/oauth2/**", "/api/auth/signup", "/api/auth/signin","/api/auth/greeting","api/auth/logout").permitAll()
+                .requestMatchers("/oauth2/**", "/api/auth/signup", "/api/auth/signin","/api/auth/greeting","api/auth/logout","/api/auth/userName").permitAll()
                 .anyRequest().authenticated()
             )
             // ✅ For OAuth2 login

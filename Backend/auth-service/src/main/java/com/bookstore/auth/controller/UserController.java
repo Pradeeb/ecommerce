@@ -17,6 +17,7 @@ import com.bookstore.auth.entity.UserLoginLog;
 import com.bookstore.auth.repository.UserLoginLogRepo;
 import com.bookstore.auth.service.IUserService;
 import com.bookstore.auth.util.ApiResponse;
+import com.bookstore.auth.util.ApolicationUtils;
 import com.bookstore.auth.util.JwtUtil;
 
 import jakarta.servlet.http.Cookie;
@@ -28,6 +29,7 @@ public class UserController {
 	
 	@Autowired UserLoginLogRepo loginLog;
 	@Autowired IUserService IUserService;
+	@Autowired private ApolicationUtils applicationUtil;
 	
 	@GetMapping(path = "/user")
 	public Map<String, Object> user(Authentication authentication) {
@@ -98,5 +100,11 @@ public class UserController {
 	public String sayHello() {
 		return "Hello World";
 	}
+    
+    @GetMapping(path = "/userName")
+	public String getUserName() {
+		return applicationUtil.getUserName();
+	}
+	
 	
 }

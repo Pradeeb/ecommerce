@@ -1,7 +1,10 @@
 package com.bookstore.auth.service.impl;
 
 import java.util.Map;
+import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +17,8 @@ import com.bookstore.auth.util.ApiResponse;
 
 @Service
 public class UserService implements IUserService {
+	
+	private static final Logger log=LoggerFactory.getLogger(UserService.class);
 
 	@Autowired ApiResponse apiResponse;
 	@Autowired UserRepo userRepo;
@@ -30,6 +35,7 @@ public class UserService implements IUserService {
 			apiResponse.setCode(HttpStatus.CONFLICT); 
 			apiResponse.setMessage("Mobile number allready have");
 			apiResponse.setPayLoad(null);
+			log.warn("Exist user try to login :{}",resUser.getName());
 			return apiResponse;
 		}
 		
@@ -73,6 +79,26 @@ public class UserService implements IUserService {
 
 		return apiResponse;
 
+	}
+
+	@Override
+	public void oAuthSignIn(User user) {
+		
+		User userData=userRepo.findByMail(user.getMail());
+		
+		Optional.ofNullable(userData).orElseGet(()->{
+			User userObj=new User();
+			userObj.setMail(user.getMail());
+			userObj.setIsVerified(user.getIsVerified());
+			userObj.setName(user.getName());
+			userObj.setPicture(user.getPicture());
+			userObj.setTokenExpire(user.getTokenExpire());
+			userObj.setLoginMode(user.getLoginMode());
+			log.info("New user add :{}",userObj.getName());
+
+			 return userRepo.save(userObj);
+		});
+		
 	}
 
 }
