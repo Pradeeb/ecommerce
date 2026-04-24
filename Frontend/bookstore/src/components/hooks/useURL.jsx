@@ -1,6 +1,6 @@
 const baseURL = "http://localhost:8080";
 
-// Auth URLs
+// Auth URLs Here
 export const googleSignUp = `${baseURL}/oauth2/authorization/google`;
 export const gitSignUp = `${baseURL}/oauth2/authorization/github`;
 export const signup = `${baseURL}/api/auth/signup`;
