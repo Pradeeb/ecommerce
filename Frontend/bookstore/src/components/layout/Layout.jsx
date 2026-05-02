@@ -4,6 +4,7 @@ import withAuth from '../auth/withAuth';
 
 const HomePage = lazy(() => import('../Pages/HomePage'));
 const ProductView = lazy(() => import('../Pages/ProductView'));
+const AddToCard = lazy(() => import('../Pages/AddToCard'));
 
 const Layout = ({type}) => {
   return (
@@ -12,6 +13,7 @@ const Layout = ({type}) => {
     <Suspense fallback={<div className="flex justify-center items-center py-8">Loading page...</div>}>
       {type=="main"?<div><HomePage/></div>:<></>}
       {type=="viewmono"?<div><ProductView/></div>:<div>Loading</div> }
+      {type=="addtocard"?<div><AddToCard/></div>:<div>Loading</div> }
     </Suspense>
     <div>Address details</div>
     </div>

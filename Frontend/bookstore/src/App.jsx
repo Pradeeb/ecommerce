@@ -15,6 +15,7 @@ function App() {
         <Route path='/signup' element={<Singup />} />
         <Route path='/main' element={<Layout type="main"/>}/>
         <Route path='/viewproduct/:id' element={<Layout type="viewmono"/>}/>
+        <Route path='/addtocard' element={<Layout type="addtocard"/>}/>
       </Routes>
     </Suspense>
   )

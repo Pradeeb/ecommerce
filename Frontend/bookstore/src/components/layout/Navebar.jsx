@@ -52,17 +52,18 @@ const Navebar = () => {
                         <Link className="text-2xl md:text-3xl font-bold text-fuchsia-800">
                             Book Store
                         </Link>
-                                          {/* SEARCH BAR */}
-                    <div className="mt-3 md:mt-0 md:flex md:justify-center">
-                        <div className="flex bg-white rounded-xl p-1 w-full md:w-1/2 h-10 items-center">
-                            <IoSearchSharp className="text-2xl mx-2 text-gray-500" />
-                            <input
-                                type="text"
-                                placeholder="Search books..."
-                                className="w-full focus:outline-none text-base md:text-xl"
-                            />
+                        {/* SEARCH BAR */}
+                        <div className="mt-3 md:mt-0 md:flex md:justify-center w-full md:w-1/2">
+                            <div className="flex items-center bg-gradient-to-r from-pink-400 via-fuchsia-500 to-purple-600 rounded-xl p-1 h-12 shadow-lg transform transition-all duration-300 hover:scale-105">
+                                <IoSearchSharp className="text-2xl mx-2 text-white drop-shadow-md" />
+                                <input
+                                    type="text"
+                                    placeholder="Search books..."
+                                    className="w-full bg-white rounded-lg px-3 py-1 focus:outline-none text-base md:text-xl shadow-inner transition-all duration-300 focus:ring-2 focus:ring-pink-400 focus:shadow-xl"
+                                />
+                            </div>
                         </div>
-                    </div>
+
 
                         {/* Icons */}
                         <div className="flex items-center gap-6">
@@ -86,7 +87,7 @@ const Navebar = () => {
                         </div>
                     </div>
 
-  
+
 
                 </div>
 

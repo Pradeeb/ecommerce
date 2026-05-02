@@ -126,6 +126,28 @@ const ProductView = () => {
             )}
           </div>
 
+          {/* Quantity Selector */}
+          <div className="flex gap-4 mb-6">
+             <span className="text-2xl font-semibold text-amber-900 mb-2">Quntity :</span>
+            <button
+              className="bg-gradient-to-r from-red-400 to-pink-500 text-white px-4 py-2 rounded-lg shadow-md hover:scale-110 transition"
+            >
+              -
+            </button>
+
+          <input
+            type="text"
+            placeholder="1"
+            readOnly
+            className="w-16 text-center border-2 border-fuchsia-500 rounded-lg text-xl font-semibold"
+          />
+            <button
+              className="bg-gradient-to-r from-green-400 to-teal-500 text-white px-4 py-2 rounded-lg shadow-md hover:scale-110 transition"
+            >
+              +
+            </button>
+
+          </div>
           {/* Buy Button */}
           <div className="mt-6">
             <a
@@ -140,8 +162,8 @@ const ProductView = () => {
         </div>
 
       </div>
-     
-       {/* ------------------ Same category products are load here SECTION ------------------ */}
+
+      {/* ------------------ Same category products are load here SECTION ------------------ */}
       <div className="container mx-auto mt-16 grid gap-6 grid-cols-1 sm:grid-cols-1 md:grid-cols-3 xl:grid-cols-5 ">
         {categoryLoading ? (
           <p>Loading related products...</p>
